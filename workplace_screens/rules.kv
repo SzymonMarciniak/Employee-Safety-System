@@ -1,0 +1,200 @@
+<RulesScreen>:
+    name: 'rules_screen'
+    canvas.before:
+        Color:
+            rgba: DM_MAIN_COLOR
+        Rectangle:
+            pos: 0,0
+            size: 10000, 10000
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: .1
+            TitleLabel:
+                text: 'Set your rules'
+            TitleLabel:
+                active_rules: 0
+                text: 'Active rules: %d' % self.active_rules
+        BoxLayout:
+            padding: 0, 20
+            size_hint_y: .9
+            ScrollView:
+                scroll_wheel_distance: 40
+                do_scroll_x: False
+                do_scroll_y: True
+                RulesContainer:
+                    size_hint: 1, None
+                    height: self.minimum_height
+                    id: rules_container
+                    spacing: 30
+                    cols: 1
+                    AddNewRule:
+
+<TitleLabel>:
+    markup: True
+    font_name: 'Lato'
+    font_size: min(self.width / 8, 48)
+
+<NewRuleCreator>:
+    actionsListButton: actionsListButton
+    detectionListButton: detectionListButton
+    camerasListButton: camerasListButton
+    delete_rule: delete_rule
+    save_rule: save_rule
+    size_hint: 1, None
+    BoxLayout:
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size_hint: .8, None
+        CamerasListButton:
+            id: camerasListButton
+            canvas_color: 'FF0000'
+        BoxLayout:
+            orientation:
+                (
+                'vertical' if app.size in 'S' else
+                'horizontal'
+                )
+            ConditionsLabel:
+                text: 'IF'
+            ActionsButton:
+                id: detectionListButton
+        BoxLayout:
+            orientation:
+                (
+                'vertical' if app.size in 'S' else
+                'horizontal'
+                )
+            ConditionsLabel:
+                text: 'THEN'
+            ActionsButton2:
+                id: actionsListButton
+        DeleteRule:
+            actionsListButton: actionsListButton
+            detectionListButton: detectionListButton
+            camerasListButton: camerasListButton
+            id: delete_rule
+        SaveButton:
+            actionsListButton: actionsListButton
+            detectionListButton: detectionListButton
+            camerasListButton: camerasListButton
+            id: save_rule
+
+
+<DeleteRule>:
+    size_hint_x: .2
+    markup: True
+    font_size: self.height / 2
+    font_name: 'Lato'
+    text: '%s' % icon('zmdi-delete')
+    color: MAIN_COLOR
+    background_color: [0, 0, 0, 0]
+    background_normal: ''
+    background_down: ''
+
+<ConditionsLabel@Label>:
+    markup: True
+    font_name: 'Lato'
+    color: DECORATION_COLOR_NOALPHA
+    font_size: self.width / 3.5
+    size_hint_x:
+        (
+        .4 if app.size in 'S' else
+        .15
+        )
+    canvas.before:
+        Color:
+            rgba: DECORATION_COLOR_NOALPHA
+        Line:
+            rectangle: self.x+5, self.y, self.width-5, self.height
+            width: 2
+
+<SaveButton>:
+    background_down: ''
+    background_normal: ''
+    background_color: 0,0,0,0
+    font_name: 'Lato'
+    font_size: self.height / 2
+    markup: True
+    text: '%s' % icon('zmdi-floppy')
+    color: MAIN_COLOR
+
+<ActionsButton>:
+    markup: True
+    font_name: 'Lato'
+    color: rgba('#FFA500')
+    canvas_color: '#FFA500'
+    font_size: self.width / 8
+    background_color: [0, 0, 0, 0]
+    size_hint_x:
+        (
+        1 if app.size in 'S' else
+        .35
+        )
+    canvas.before:
+        Color:
+            rgba: rgba(self.canvas_color)
+        Line:
+            rectangle: self.x+5, self.y, self.width-5, self.height
+            width: 2
+
+<ActionsButton2>:
+    markup: True
+    font_name: 'Lato'
+    color: rgba('#FFA500')
+    canvas_color: '#FFA500'
+    font_size: self.width / 8
+    background_color: [0, 0, 0, 0]
+    size_hint_x:
+        (
+        1 if app.size in 'S' else
+        .35
+        )
+    canvas.before:
+        Color:
+            rgba: rgba(self.canvas_color)
+        Line:
+            rectangle: self.x+5, self.y, self.width-5, self.height
+            width: 2
+#        Triangle:
+#            points: [self.width, self.y + 20, self.width + 20, self.y + 20, self.width + 10, self.y + 5]
+
+<CamerasListButton>:
+    markup: True
+    font_name: 'Lato'
+    color: rgba('#FFA500')
+    canvas_color: '#FFA500'
+    font_size: self.width / 8
+    background_color: [0, 0, 0, 0]
+    size_hint_x:
+        (
+        1 if app.size in 'S' else
+        .35
+        )
+    canvas.before:
+        Color:
+            rgba: rgba(self.canvas_color)
+        Line:
+            rectangle: self.x+5, self.y, self.width-5, self.height
+            width: 2
+
+<AddNewRule>:
+    size_hint: 1, None
+    AddNewRule_Button:
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size_hint: .8, None
+        canvas.before:
+            Color:
+                rgba: MAIN_COLOR
+            Line:
+                rectangle: self.x, self.y, self.width, self.height
+                dash_length: 25
+                dash_offset: 25
+                width: 1
+        background_color: [0, 0, 0, 0]
+        background_normal: ''
+        background_down: ''
+        markup: True
+        font_name: 'Lato'
+        color: MAIN_COLOR
+        text: '%s Add new rule' % icon('zmdi-plus-square')
+        font_size: mtx.sp(32)

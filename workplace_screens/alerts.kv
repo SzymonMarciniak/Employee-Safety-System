@@ -1,0 +1,90 @@
+<AlertsScreen>:
+    name: 'alerts_screen'
+    alerts_count_label: alerts_count_label
+    size_hint_x: 1
+    canvas.before:
+        Color:
+            rgba: DM_MAIN_COLOR
+        Rectangle:
+            pos: 0,0
+            size: 10000, 10000
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: .1
+            TitleLabel_Alerts:
+                text: 'Alerts log'
+            TitleLabel_Alerts:
+                id: alerts_count_label
+                unseen_alerts: 0
+                text: 'Unseen: ' + str(self.unseen_alerts)
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30, 0, 30, 20
+            size_hint_y: .9
+            LogLegend:
+                padding: 0, 30
+                size_hint_y: .15
+            ScrollView:
+                size_hint_y: .85
+                scroll_wheel_distance: 40
+                do_scroll_x: False
+                do_scroll_y: True
+                StackLayout:
+                    id: logs_layout
+                    size_hint: 1, None
+                    height: self.minimum_height
+                    cols: 1
+
+<TitleLabel_Alerts@Label>:
+    markup: True
+    font_name: 'Lato'
+    font_size: min(self.width / 8, 48)
+
+<LogLegend@BoxLayout>:
+    size_hint: 1, None
+    LogLabel_Legend:
+        size_hint_x: .6
+        text: 'ID'
+    LogLabel_Legend:
+        text: 'Camera'
+    LogLabel_Legend:
+        text: 'Type'
+    LogLabel_Legend:
+        text: 'Alert'
+    LogLabel_Legend:
+        text: 'Date'
+
+<Log>:
+    size_hint: 1, None
+    unseen: 0
+    canvas.before:
+        Color:
+            rgba: rgba('#3e4047')
+        Rectangle:
+            pos: self.pos
+            size: self.size[0] * self.unseen, self.size[1] * self.unseen
+
+
+<LogLabel>:
+    markup: True
+    font_name: 'Lato'
+    font_size: min(self.width / 6, 42)
+    canvas.before:
+        Color:
+            rgba: SECONDARY_COLOR
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+            width: 2
+
+<LogLabel_Legend@Label>:
+    color: SECONDARY_COLOR
+    font_size: min(self.height / 2, 48)
+    markup: True
+    font_name: 'Lato'
+    canvas.before:
+        Color:
+            rgba: DECORATION_COLOR_NOALPHA
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+            width: 4

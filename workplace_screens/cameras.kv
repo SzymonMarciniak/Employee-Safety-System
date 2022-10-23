@@ -1,0 +1,84 @@
+<CamerasScreen>:
+    name: 'cameras_screen'
+    canvas.before:
+        Color:
+            rgba: DM_MAIN_COLOR
+        Rectangle:
+            pos: 0,0
+            size: 10000, 10000
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20, 50
+        spacing: 30
+        ScrollView:
+            size_hint_y: .9
+            do_scroll_y: True
+            do_scroll_x: False
+            scroll_wheel_distance: 40
+            CamerasLayout:
+                height: self.minimum_height
+                size_hint: 1, None
+
+<RLayout>:
+    camera_view_parent: camera_view_parent
+    size:
+        (
+        [app.width * .7, app.width * .4] if app.width < 700 else
+        [525, 300]
+        )
+    size_hint: None, None
+    BoxLayout:
+        size_hint: .9, .9
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        BoxLayout:
+            BoxLayout:
+                id: camera_view_parent
+                BoxLayout:
+                    size_hint_x: .2
+                    orientation: 'vertical'
+                    FloatLayout:
+                        size_hint_y: .3
+                        canvas.before:
+                            Color:
+                                rgba: BG_COLOR
+                            Line:
+                                rectangle: self.x, self.y, self.width, self.height
+                                width: 1
+                        Widget:
+                            id: alert_indicator
+                            alert_color: [0, 1, 0, 1]
+                            size_hint: None, .7
+                            width: self.height
+                            pos_hint: {'center_x': .5, 'center_y': .5}
+                            canvas.before:
+                                Color:
+                                    rgba: self.alert_color
+                                Ellipse:
+                                    pos: self.pos
+                                    size: self.width, self.height
+                    InfoButton:
+                        size_hint_y: .3
+                        markup: True
+                        color: SECONDARY_COLOR
+                        text: '%s' % icon('zmdi-info-outline')
+                        font_size: self.height * .7
+                        background_color: [0, 0, 0, 0]
+                        background_down: ''
+                        background_normal: ''
+                        canvas.before:
+                            Color:
+                                rgba: BG_COLOR
+                            Line:
+                                rectangle: self.x, self.y, self.width, self.height
+                                width: 1
+                    Widget:
+                        size_hint_y: .4
+
+<CameraView>:
+    size_hint_x: .8
+    canvas.before:
+        Color:
+            rgba: BG_COLOR
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+            width: 1

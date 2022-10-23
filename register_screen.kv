@@ -1,0 +1,173 @@
+<RegisterScreen>:
+    name: 'register_screen'
+    orientation: 'vertical'
+    registerBtn: registerBtn
+    loginBtn: loginBtn
+    resetPswdBtn: resetPswdBtn
+    loginBox: newLoginBox
+    newPasswordBox: newPasswordBox
+    repeatPasswordBox: repeatPasswordBox
+    nameBox: nameBox
+    canvas.before:
+        Color:
+            rgba: BG_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: DECORATION_COLOR
+        Ellipse:
+            pos: self.size[0] - 200, - 200
+            size: 400, 400
+        Ellipse:
+            pos: -225, self.size[1] *.5 - 125
+            size: 250, 250
+        Color:
+            rgba: MAIN_COLOR
+        Triangle:
+            points: [0, self.size[1], .9 * self.size[0], self.size[1], 0, .75 * self.size[1]]
+        Color:
+            rgba: SECONDARY_COLOR
+        Triangle:
+            points: [self.size[0], self.size[1], 0, self.size[1], self.size[0], .73 * self.size[1]]
+    ChangeLanguage:
+        background_normal: "img/gb.png"
+        background_down: "img/gb.png"
+        size: 50, 38
+        size_hint: None, None
+        pos: root.width - (self.width + 10), root.height - (self.height + 10)
+    BoxLayout:
+        orientation: 'vertical'
+        Widget:
+            size_hint_y: .15
+        RelativeLayout:
+            size_hint_y: .1
+        Label:
+            text: "Sign in"
+            color: MAIN_COLOR
+            font_size: self.height / 2
+            size_hint_y: .1
+        BoxLayout:
+            background_color: 0,1,0,1
+            size_hint_y: .2
+            orientation: 'horizontal'
+            spacing: -1 * (.5 * self.size[0])
+            Label:
+                markup: True
+                text: "%s" % icon('zmdi-key')
+                color: MAIN_COLOR
+                font_size: self.height / 1.5
+            Label:
+                markup: True
+                text: "%s" % icon('zmdi-lock')
+                color: MAIN_COLOR
+                font_size: self.height / 1.5
+
+        RegisterScreenLayout:
+            size_hint_y: .6
+            padding: [.1 * self.size[0], 0]
+            spacing: 20
+            orientation: 'vertical'
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                GridLayout:
+                    spacing: 30
+                    size_hint_y: None
+                    height: 430
+                    width: self.minimum_width
+                    cols: 1
+                    SimpleInput:
+                        id: newLoginBox
+                        hint_text: 'E-Mail address'
+                    RelativeLayout:
+                        SimpleInput:
+                            id: newPasswordBox
+                            password: True
+                            hint_text: 'New password'
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        PasswordSwitch:
+                            size_hint_x: .1
+                            pos_hint: {'center_x': 0.95, 'center_y': 0.60}
+                            on_press:
+                                newPasswordBox.password = False
+                                self.color = rgba('#08c48c')
+                            on_release:
+                                newPasswordBox.password = True
+                                self.color = MAIN_COLOR
+                        Label:
+                            id: capsLockLabel_newPasswordBox
+                            color: rgba('#08c48c')
+                            pos_hint: {'center_x': 0.80, 'center_y': 0.60}
+                    RelativeLayout:
+                        SimpleInput:
+                            id: repeatPasswordBox
+                            password: True
+                            hint_text: 'Repeat password'
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        PasswordSwitch:
+                            size_hint_x: .1
+                            pos_hint: {'center_x': 0.95, 'center_y': 0.60}
+                            on_press:
+                                repeatPasswordBox.password = False
+                                self.color = rgba('#08c48c')
+                            on_release:
+                                repeatPasswordBox.password = True
+                                self.color = MAIN_COLOR
+                        Label:
+                            id: capsLockLabel_repeatPasswordBox
+                            color: rgba('#08c48c')
+                            pos_hint: {'center_x': 0.80, 'center_y': 0.60}
+                    SimpleInput:
+                        id: nameBox
+                        hint_text: 'First and last name'
+                    ErrorBox:
+                        pos_hint: {'top':1.0}
+                        size_hint_y: 3
+                        size_hint_x: .5
+                        id: errorBox
+
+                        text: "[size=%d]%s[/size]\nCould not log in. Ensure the credentials match" % (self.height / 2 * 1.5, icon('zmdi-alert-circle'))
+            BoxLayout:
+                size_hint_y: .6
+                orientation: 'vertical'
+                spacing: 10
+                RegisterButton:
+                    loginBox: newLoginBox
+                    newPasswordBox: newPasswordBox
+                    repeatPasswordBox: repeatPasswordBox
+                    nameBox: nameBox
+                    errorBox: errorBox
+                    id: loginBtn
+                    text: "Sign in"
+                    size_hint_y: .4
+                SwitchRegisterButton:
+                    id: registerBtn
+                    text: "Already a user? Log in"
+                    size_hint_y: .4
+                    on_release:
+                        app.root.transition = FadeTransition()
+                        app.root.current = 'login_screen'
+                ResetPasswordButton:
+                    id: resetPswdBtn
+                    text: "Forgot password?"
+                    size_hint_y: .2
+            Widget:
+                size_hint_y: .1
+
+
+<RegisterButton>:
+    background_color: [0,0,0,0]
+    color: BG_COLOR
+    on_press: root.on_pressed()
+    on_release: root.on_released()
+    font_size: max(15, self.height / 1.7)
+    font_name: 'Lato'
+    bold: True
+    canvas.before:
+        Color:
+            rgba: rgba(self.rectColor)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 20, 20, 20]

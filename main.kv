@@ -1,0 +1,106 @@
+#: import mtx kivy.metrics
+#: import icon iconfonts.iconfonts.icon
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+#: set BG_COLOR rgba('#ececec')
+#: set MAIN_COLOR rgba('#0fafff')
+#: set SECONDARY_COLOR rgba('#0f87ff')
+#: set DECORATION_COLOR [0.031, 0.768, 0.549, 0.2]
+#: set DECORATION_COLOR_NOALPHA rgba('#08c48c')
+#: set ERROR_COLOR rgba('#c92a1e')
+#-------------- DARK MODE --------------#
+#: set DM_MAIN_COLOR rgba('#282a35')
+
+#: include login_screen.kv
+#: include register_screen.kv
+#: include forgot_password.kv
+#: include new_password.kv
+#: include choose_workplace.kv
+#: include new_workplace.kv
+#: include main_workplace_screen.kv
+#: include workplace_screens/cameras.kv
+#: include workplace_screens/rules.kv
+#: include workplace_screens/alerts.kv
+#: include workplace_screens/setup.kv
+#: include workplace_screens/settings.kv
+
+<ScreenManagement>:
+    id: screen_manager
+    LoginScreen:
+
+    RegisterScreen:
+
+    ChooseWorkplaceScreen:
+
+    ForgotPasswordScreen:
+
+    NewPasswordScreen:
+
+    NewWorkplaceScreen:
+
+    MainWorkplaceScreen:
+
+<ResetPasswordButton>:
+    font_size: self.height / 1.5
+    font_name: 'Lato'
+    background_color: [0,0,0,0]
+    color: [0,0,0,.5]
+
+
+<LoginButton>:
+    background_color: [0,0,0,0]
+    color: BG_COLOR
+    on_press: root.on_pressed()
+    on_release: root.on_released()
+    font_size: max(15, self.height / 1.7)
+    font_name: 'Lato'
+    bold: True
+    canvas.before:
+        Color:
+            rgba: rgba(self.rectColor)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 20, 20, 20]
+
+<SwitchRegisterButton>:
+    background_normal: ''
+    background_color: [0,0,0,0]
+    color: MAIN_COLOR
+    font_size: max(15, self.height / 2)
+    margin: 20
+    lineWidth: 3
+    font_name: 'Lato'
+    cuttedSize: 40
+    outline: 10
+    canvas.before:
+        Color:
+            rgba: rgba('0fafff')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 20, 20, 20]
+        Color:
+            rgba: BG_COLOR
+        RoundedRectangle:
+            pos: self.pos[0] + (.5 * self.outline), self.pos[1] + (.5 * self.outline)
+            size: self.size[0] - self.outline, self.size[1] - self.outline
+            radius: [20, 20, 20, 20]
+
+<SimpleInput>:
+    canva_s1: 1
+    font_size: max(15, self.height / 2)
+    font_name: 'Lato'
+    write_tab: False
+    foreground_color: DECORATION_COLOR_NOALPHA
+    multiline: False
+    background_normal: ''
+    background_active: ''
+    hint_text_color: SECONDARY_COLOR
+    background_color: [1,1,1,0]
+    canvas.after:
+        Color:
+            rgba: MAIN_COLOR
+        Rectangle:
+            pos: self.pos[0], self.pos[1]
+            size: [self.size[0] * self.canva_s1, 1]

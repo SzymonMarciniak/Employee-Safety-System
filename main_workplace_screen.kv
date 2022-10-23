@@ -1,0 +1,195 @@
+<MainWorkplaceScreen>:
+    name: 'main_workplace_screen'
+    bottom_menu: bottom_menu
+    upper_menu: upper_menu
+    settingsID: settingsID
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: BG_COLOR
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint_y: .05
+            padding: 30, 0
+            HeaderLabel:
+                markup: True
+                text: '[color=#08c48c]%s[/color]   Connected' % icon('zmdi-circle')
+                text_size: self.size
+                halign: 'left'
+                valign: 'center'
+            HeaderLabel:
+                font_name: 'RobotoMono-Regular'
+                markup: True
+                text: 'Employee Safety System'
+            HeaderLabel:
+                text_size: self.size
+                halign: 'right'
+                valign: 'center'
+                text: 'v1.3.8-P'
+        BoxLayout:
+            main_screen_sm: main_screen_sm
+            bottom_menu: bottom_menu
+            size_hint_y: .95
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: .2
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: MAIN_COLOR
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    size_hint_y: .25
+                    orientation: 'vertical'
+                    Label:
+                        color: BG_COLOR
+                        markup: True
+                        text: '%s' % icon('zmdi-account')
+                        font_size: min(self.width * .9, 130)
+                    Label:
+                        font_size: min(self.width / 5, 32)
+                        text_size: self.width, None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        valign: 'top'
+                        color: BG_COLOR
+                        text: root.hello_text
+                DivisionLine:
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: DM_MAIN_COLOR
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    size_hint_y: .55
+                    StackLayout:
+                        id: upper_menu
+                        orientation: 'tb-lr'
+                        cols: 1
+                        MenuButton:
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Cameras' % icon('zmdi-camera')
+                            sID: 1
+                        MenuButton:
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Alerts' % icon('zmdi-notifications-active')
+                            sID: 2
+                        MenuButton:
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Rules' % icon('zmdi-view-list')
+                            sID: 4
+                        MenuButton:
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Setup' % icon('zmdi-settings')
+                            sID: 5
+                DivisionLine:
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: DM_MAIN_COLOR
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    size_hint_y: .2
+                    StackLayout:
+                        orientation: 'tb-lr'
+                        cols: 1
+                        id: bottom_menu
+                        MenuButton:
+                            size_hint: 1, .375
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Settings' % icon('zmdi-settings')
+                            sID: 6
+                        MenuButton:
+                            size_hint: 1, .375
+                            main_screen_sm: main_screen_sm
+                            bottom_menu: bottom_menu
+                            upper_menu: upper_menu
+                            text: '%s   Logout' % icon('zmdi-square-right')
+                            sID: 7
+            DivisionLine:
+                size_hint_x: None
+                size_hint_y: 1
+                width: 5
+            ScreenManager:
+                id: main_screen_sm
+                size_hint_x: .795
+                Screen:
+                    name: 'default'
+                    canvas.before:
+                        Color:
+                            rgba: DM_MAIN_COLOR
+                        Rectangle:
+                            pos: 0,0
+                            size: 10000, 10000
+                    Label:
+                        markup: True
+                        text: "Choose category to magically show all necessary info"
+                        color: BG_COLOR
+                        font_size: sp(32)
+                Screen:
+                    name: 'dev'
+                    Button:
+                        text: 'Every other option'
+
+                CamerasScreen:
+                AlertsScreen:
+                RulesScreen:
+                SetupScreen:
+                SettingsScreen:
+                    id: settingsID
+
+
+<DivisionLine@Widget>:
+    canvas.before:
+        Color:
+            rgba: BG_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    size_hint_y: None
+    height: 5
+
+<MenuButton>:
+    is_active: False
+    font_size:
+        (
+        self.width / 6.5 if app.size in 'S' else
+        32
+        )
+    size_hint: 1, .15
+    markup: True
+    background_normal: ''
+    background_down: ''
+    background_color:
+        (
+        DECORATION_COLOR_NOALPHA if self.is_active else
+        [0, 0, 0, 0]
+        )
+    color: BG_COLOR
+    canva_s1: 0
+    canvas.before:
+        Color:
+            rgba: DECORATION_COLOR_NOALPHA
+        Rectangle:
+            pos: self.pos
+            size: self.width * self.canva_s1, self.height
+
+<HeaderLabel@Label>:
+    font_size: self.height / 3.5
+    color: [0, 0, 0, 1]

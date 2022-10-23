@@ -1,0 +1,168 @@
+<NewWorkplaceScreen>:
+    name: "new_workplace_screen"
+    canvas.before:
+        Color:
+            rgba: BG_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: DECORATION_COLOR
+        Ellipse:
+            pos: self.size[0] - 200, - 200
+            size: 400, 400
+        Ellipse:
+            pos: -225, self.size[1] *.5 - 125
+            size: 250, 250
+        Color:
+            rgba: MAIN_COLOR
+        Triangle:
+            points: [0, self.size[1], self.size[0], self.size[1], 0, .9 * self.size[1]]
+        Color:
+            rgba: SECONDARY_COLOR
+        Triangle:
+            points: [self.size[0], self.size[1], 0, self.size[1], self.size[0], .9 * self.size[1]]
+    BoxLayout:
+        orientation: 'vertical'
+        Widget:
+            size_hint_y: .15
+        RelativeLayout:
+            size_hint_y: .1
+        Label:
+            text: "Create workplace"
+            color: MAIN_COLOR
+            font_size: self.height / 2
+            size_hint_y: .1
+        BoxLayout:
+            background_color: 0,1,0,1
+            size_hint_y: .2
+            orientation: 'horizontal'
+            spacing: -1 * (.5 * self.size[0])
+            Label:
+                markup: True
+                text: "%s" % icon('zmdi-wrench')
+                color: MAIN_COLOR
+                font_size: self.height / 1.5
+            Label:
+                markup: True
+                text: "%s" % icon('zmdi-storage')
+                color: MAIN_COLOR
+                font_size: self.height / 1.5
+        BoxLayout:
+            workplace_name_textinput: workplace_name_textinput
+            status_toggle: status_toggle
+            size_hint_y: .6
+            padding: [.1 * self.size[0], 0]
+            orientation: 'vertical'
+            Widget:
+                size_hint_y: .1
+            SimpleInput:
+                id: workplace_name_textinput
+                size_hint_y: .1
+                hint_text: "Name of workplace"
+            Widget:
+                size_hint_y: .1
+            BoxLayout:
+                size_hint_y: .1
+                Label:
+                    markup: True
+                    text: "%s" % icon('zmdi-chevron-right')
+                    font_size: self.height
+                    size_hint_x: .15
+                    color: SECONDARY_COLOR
+                    text_size: self.size
+                    halign: 'right'
+                Widget:
+                    size_hint_x: .1
+                Label:
+                    text: "Notifications"
+                    font_name: 'Lato'
+                    color: SECONDARY_COLOR
+                    font_size: min(72, self.width / 7)
+                StatusToggleButton:
+                    id: status_toggle
+                    on_press: self.on_toggled(self, None)
+
+            Widget:
+                size_hint_y: .1
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 10
+                size_hint_y: .2
+                CreateWorkplaceButton:
+                    status_toggle: status_toggle
+                    workplace_name_textinput: workplace_name_textinput
+                    text: "Create workplace"
+                BackToWorkplaceChooserButton:
+                    text: "Go back"
+        Widget:
+            size_hint_y: .1
+
+<StatusToggleButton>:
+    p1: self.x
+    p2: self.y
+    s1: self.width
+    s2: self.height
+    rect_color: DECORATION_COLOR_NOALPHA
+    toggle_color: DECORATION_COLOR_NOALPHA
+    text: "ON"
+    markup: True
+    font_name: 'Lato'
+    state: 'down'
+    background_normal: ''
+    background_down: ''
+    background_color: [0, 0, 0, 0]
+    canvas.before:
+        Color:
+            rgba: self.rect_color
+        RoundedRectangle:
+            pos: self.p1, self.p2
+            size: self.s1, self.s2
+            radius: 15,15,15,15
+        Color:
+            rgba: self.toggle_color
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+            width: 2
+
+<CreateWorkplaceButton>:
+    background_color: [0,0,0,0]
+    color: BG_COLOR
+    on_press: root.on_pressed()
+    on_release: root.on_released()
+    font_size: max(15, self.height / 1.7)
+    font_name: 'Lato'
+    bold: True
+    canvas.before:
+        Color:
+            rgba: rgba(self.rectColor)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 20, 20, 20]
+
+<BackToWorkplaceChooserButton>:
+    background_normal: ''
+    background_color: [0,0,0,0]
+    color: MAIN_COLOR
+    font_size: max(15, self.height / 2)
+    margin: 20
+    lineWidth: 3
+    font_name: 'Lato'
+    cuttedSize: 40
+    outline: 10
+    on_press: self.on_pressed()
+    on_release: self.on_released()
+    canvas.before:
+        Color:
+            rgba: rgba('0fafff')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 20, 20, 20]
+        Color:
+            rgba: BG_COLOR
+        RoundedRectangle:
+            pos: self.pos[0] + (.5 * self.outline), self.pos[1] + (.5 * self.outline)
+            size: self.size[0] - self.outline, self.size[1] - self.outline
+            radius: [20, 20, 20, 20]

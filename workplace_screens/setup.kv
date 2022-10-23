@@ -1,0 +1,229 @@
+#: import mtx kivy.metrics
+
+<SetupScreen>:
+    name: 'SetupScreen'
+    canvas.before:
+        Color:
+            rgba: DM_MAIN_COLOR
+        Rectangle:
+            pos: 0,0
+            size: 10000, 10000
+    floatlayout: floatlayout
+
+    BoxLayout:
+        id: setupScreenId
+        orientation: "vertical"
+
+      
+        
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, .1
+            
+
+            ChooseSetupButton:
+                id: CreateRoomButton
+                group: 'create_room'
+                text: "Create room"
+                on_press: root.create_room_activate()
+
+            ChooseSetupButton:
+                id: CreateDoorButton
+                group: 'create_room'
+                text: "Create door"
+                on_press: root.create_door_activate()
+
+            ChooseSetupButton:
+                id: CreateCameraButton
+                group: 'create_room'
+                text: "Add camera"
+                on_press: root.add_camera_activate()
+
+            ChooseSetupButton:
+                id: ShowIDButton
+                group: 'show_data'
+                text: "Show IDs"
+                on_press: root.show_ids()
+                
+
+            ChooseSetupButton:
+                id: ShowNameButton
+                group: 'show_data'
+                text: "Show names"
+                on_press: root.show_names()
+
+                
+            Button:
+                text: "Delete widgets"
+                on_release: root.open_delete_popup()
+
+                wh_bg: (236/255, 236/255, 236/255, 1)
+                bl_bg: (15/255, 175/255, 255/255, 1)
+
+                canvas.before:
+                    Color:
+                        rgba: self.bl_bg if self.state == "normal" else self.wh_bg
+                    Line:
+                        width: 2
+                        rectangle: self.x, self.y, self.width, self.height
+                
+                color: self.bl_bg if self.state == "normal" else self.wh_bg
+                background_color: [0,0,0,0] if self.state == "normal" else self.bl_bg
+
+        
+            
+        FloatLayout:
+            id: floatlayout 
+
+            ChooseFloorButton:
+                id: floor_0
+                text: "Floor 0"
+                pos_hint: {'x': 0.93, 'y': 0.24}
+                size_hint: None, None
+                size: root.size[0] * .05, root.size[0] * .05
+                group: "floors"
+                on_press: root.select_floor(self, 0)
+
+            ChooseFloorButton:
+                id: floor_1
+                text: "Floor 1"
+                pos_hint: {'x': 0.93, 'y': 0.14}
+                size_hint: None, None
+                size: root.size[0] * .05, root.size[0] * .05
+                group: "floors"
+                on_press: root.select_floor(self, 1)
+
+            ChooseFloorButton:
+                id: floor_2 
+                text: "Floor 2"
+                pos_hint: {'x': 0.93, 'y': 0.04}
+                size_hint: None, None
+                size: root.size[0] * .05, root.size[0] * .05
+                group: "floors"
+                on_press: root.select_floor(self, 2)
+            
+            
+            
+<SelectFloorPopup>:
+    id: FloorPopup 
+    auto_dismiss: True 
+    title: "Please select floor"
+    size_hint: .3, .5
+    title_align: "center"
+    size_hint: .35, None 
+    size: 100, 200 
+    RelativeLayout:
+        
+        Label: 
+            text: "Please select floor"  
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: 1, None 
+            size: 0, 35
+            
+
+            
+
+<DeleteWidgetPopup>:
+    id: DeletePopup
+    auto_dismiss: True
+    title: "Delete widget by ID" 
+    size_hint: .3, .5
+    title_align: "center"
+    size_hint: .35, None 
+    size: 100, 200 
+    BoxLayout:
+        orientation: "vertical"
+        
+        Label:
+            text: "Write object's ID" 
+            size_hint: 1, None 
+            size: 0, 35 
+        TextInput:
+            id: deleteWidgetId
+            size_hint: .5, None 
+            size: 0, 35 
+            pos_hint: {"x":.25 ,"y":1}
+        
+        Button:
+            text: "Delete"
+            on_release: root.dismiss()
+            size_hint: .5, None 
+            size: 0, 35 
+            pos_hint: {"x":.25 ,"y":0}
+
+<GetNamePopup>:
+    id: getNamePopup 
+    auto_dismiss: False
+    title: "Names" 
+    size_hint: .3, .5
+    title_align: "center"
+    size_hint: .35, None 
+    size: 100, 200
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Write name of new object" 
+            size_hint: 1, None 
+            size: 0, 35 
+        TextInput:
+            id: getNameText
+            size_hint: .5, None 
+            size: 0, 35 
+            pos_hint: {"x":.25 ,"y":1}
+        
+        Button:
+            text: "Apply"
+            on_release: root.dismiss()
+            size_hint: .5, None 
+            size: 0, 35 
+            pos_hint: {"x":.25 ,"y":0}
+
+
+<ChooseSetupButton@ToggleButton>:
+    wh_bg: (236/255, 236/255, 236/255, 1)
+    bl_bg: (15/255, 175/255, 255/255, 1)
+    
+    canvas.before:
+        Color:
+            rgba: root.bl_bg if self.state == "normal" else root.wh_bg
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+    
+    color: root.bl_bg if self.state == "normal" else root.wh_bg
+    background_color: [0,0,0,0] if self.state == "normal" else root.bl_bg
+
+<ChooseFloorButton@ToggleButton>:
+    wh_bg: (236/255, 236/255, 236/255, 1)
+    bl_bg: (15/255, 175/255, 255/255, 1)
+
+    
+    canvas.before:
+        Color:
+            rgba: root.bl_bg if self.state == "normal" else root.wh_bg
+        Line:
+            width: 2
+            circle: self.pos[0] + (self.size[0]/2), self.pos[1] + (self.size[1] /2), self.size[0] /2
+                
+        Color: 
+            rgba: [0,0,0,0] if self.state == "normal" else root.bl_bg
+        RoundedRectangle:
+            size: self.size 
+            pos: self.pos 
+            radius: [58]
+    
+    color: root.bl_bg if self.state == "normal" else root.wh_bg
+    background_color: [0,0,0,0] 
+    
+
+
+
+
+
+
+
+
+
+
+
