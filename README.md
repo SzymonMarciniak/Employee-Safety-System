@@ -14,7 +14,10 @@ If you use windows 10/11 you must also install:
 ```python 
 pip install pywin32==304
 ```
-# 3. Start SQL 
+# 3. Install large files from releases
+In release everything is described
+
+# 4. Start SQL 
 Create sql table: 
 ```python 
 CREATE DATABASE "employee_safety_system";
@@ -22,7 +25,7 @@ CREATE DATABASE "employee_safety_system";
 Or import .sql file 
 
 
-# 4. Run application 
+# 5. Run application 
     python3 main.py
     
 ## License
