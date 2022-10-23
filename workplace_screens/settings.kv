@@ -6,51 +6,57 @@
         Rectangle:
             pos: 0,0
             size: 10000, 10000
-    ContainerStackLayout:
-        SettingsLabel:
-        SettingsElement:
-            InfoLabelSettings:
-                text: 'Enable workspace functionality'
-            StatusToggleButton:
-                id: togg1
-                on_press: self.on_toggled(self, 'activation_state')
-                font_size: max(15, self.width / 10)
-                size_hint: .6, 1
-        SettingsElement:
-            InfoLabelSettings:
-                text: 'Enable workspace notifications'
-            StatusToggleButton:
-                id: togg2
-                on_press: self.on_toggled(self, 'notifications_state')
-                font_size: max(15, self.width / 10)
-                size_hint: .6, 1
-        BoxLayout:
-            canvas.before:
-                Color:
-                    rgba: BG_COLOR
-                Line:
-                    points: self.x, self.y - 20, self.width, self.y - 20
-                    width: 1
-            size_hint_x: 1
-            size_hint_y: None
-            spacing: 25
-            InfoLabelSettings:
-                text: 'Delete workspace (PERMANENTLY)'
-            DeleteWorkspaceButton:
-                size_hint_x: .6
-        SettingsLabel:
-            text: 'Contact me'
-        SettingsElement:
-            InfoLabelSettings:
-                text: 'Szymon Marciniak - szymonmarciniak22@gmail.com'
-        
+    ScrollView:
+        do_scroll_y: True
+        do_scroll_x: False
+        ContainerStackLayout:
+            size_hint: 1, None
+            height: 1000
+            SettingsLabel:
+            SettingsElement:
+                InfoLabelSettings:
+                    text: 'Enable workspace functionality'
+                StatusToggleButton:
+                    id: togg1
+                    on_press: self.on_toggled(self, 'activation_state')
+                    font_size: max(15, self.width / 10)
+                    size_hint: .6, 1
+            SettingsElement:
+                InfoLabelSettings:
+                    text: 'Enable workspace notifications'
+                StatusToggleButton:
+                    id: togg2
+                    on_press: self.on_toggled(self, 'notifications_state')
+                    font_size: max(15, self.width / 10)
+                    size_hint: .6, 1
+            BoxLayout:
+                canvas.before:
+                    Color:
+                        rgba: BG_COLOR
+                    Line:
+                        points: self.x, self.y - 20, self.width, self.y - 20
+                        width: 1
+                size_hint_x: 1
+                size_hint_y: None
+                spacing: 25
+                InfoLabelSettings:
+                    text: 'Delete workspace (PERMANENTLY)'
+                DeleteWorkspaceButton:
+                    size_hint_x: .6
+            SettingsLabel:
+                text: 'Contact us'
+            SettingsElement:
+                orientation: 'vertical'
+                InfoLabelSettings:
+                    text: 'Szymon Marciniak - szymonmarciniak22@gmail.com\nMiłosz Mikołajczyk - binarbeta@gmail.com'
+
 
 <InfoLabelSettings@Label>:
     font_size: max(13, min(42, self.width / 16))
 <ContainerStackLayout@StackLayout>:
     orientation: 'tb-lr'
     cols: 1
-    spacing: 60
+    spacing: 25
     padding: .07 * root.width, 25
 
 <SettingsElement@BoxLayout>:
@@ -61,6 +67,7 @@
 <SettingsLabel@Label>:
     size_hint_x: 1
     size_hint_y: None
+    height: 150
     markup: True
     font_name: 'Lato'
     text: 'Settings'
