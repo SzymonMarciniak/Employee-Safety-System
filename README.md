@@ -15,7 +15,7 @@ If you use windows 10/11 you must also install:
 pip install pywin32==304
 ```
 # 3. Install large files from releases
-In release everything is described
+In release everything is described: https://github.com/SzymonMarciniak/Employee-Safety-System/releases
 
 # 4. Start SQL 
 Create sql table: 
