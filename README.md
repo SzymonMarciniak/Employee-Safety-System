@@ -24,3 +24,6 @@ Or import .sql file
 
 # 4. Run application 
     python3 main.py
+    
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
