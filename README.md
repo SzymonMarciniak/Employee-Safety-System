@@ -1,16 +1,26 @@
 # RUN 
 
-# 1. Create virtual environment 
+# 1. Create virtual environment  *optional*
     conda create -n 'name' python=3.9.7
 
+Remember that you need to use python in 3.9.7 version
+
 # 2. Install dependencties 
-    pip install -r requirements.txt
+```python 
+pip install -r requirements.txt
+```
+If you use windows 10/11 you must also install: 
 
-    If you use windows 10/11 you must also install: 
-        pywin32==304
+```python 
+pip install pywin32==304
+```
+# 3. Start SQL 
+Create sql table: 
+```python 
+CREATE DATABASE "employee_safety_system";
+```
+Or import .sql file 
 
-# 3. Start MySQL 
-    And create table "employee_safety_system"
 
 # 4. Run application 
     python3 main.py
